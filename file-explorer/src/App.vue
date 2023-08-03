@@ -5,6 +5,19 @@ import {ref, Ref} from "vue";
 const currentDir: Ref<string> = ref("")
 const files: Ref<string[]> = ref([])
 
+/* TO-DO (3)
+  Show the current directory on the screen.
+*/
+
+/* TO-DO (4)
+  Show the contents of the current directory on the screen.
+  Once a new file is created by the user, it should also appear on the screen.
+*/
+
+/* TO-DO (5)
+  Allow the user to view and edit any text file by clicking on one of the displayed files.
+*/
+
 invoke("get_current_directory").then((dir) => currentDir.value = dir as string)
 
 invoke("get_current_files", { currentDir: currentDir.value })
@@ -18,37 +31,17 @@ const fileContents = ref("")
 const showFile = ref(false)
 const successfulWrite = ref(false)
 
-/* TO-DO (1)
-  Using Tauri commands, make a function that creates a new file in the current directory.
-*/
-
 function createNewFile() {
-  invoke("create_new_file", { fileName: fileName.value })
-  .then(() => {
-    showFile.value = true
-    invoke("get_current_files", { currentDir: currentDir.value })
-      .then((files_vec) => files.value = files_vec as string[])
-      .catch((error) => {
-        console.log(error)
-    })
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+  /* TO-DO (1)
+    Using Tauri commands, make a function that creates a new file in the current directory.
+    (HINT: use std::fs)
+  */
 }
 
 function writeToFile() {
-  invoke("write_to_file", { 
-    fileName: fileName.value, 
-    fileContents: fileContents.value 
-  })
-  .then(() => {
-    fileContents.value = ""
-    successfulWrite.value = true;
-  })
-  .catch((error) => {
-    console.log(error)
-  })
+  /* TO-DO (2)
+        Allow the user to write to the file once its been created.
+  */
 }
 </script>
 
